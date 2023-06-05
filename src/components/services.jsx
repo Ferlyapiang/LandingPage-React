@@ -7,14 +7,13 @@ export const Services = (props) => {
         <div className="section-title">
           <h2>Our Services</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit duis sed
-            dapibus leonec.
+          We offer a comprehensive range of services designed to meet the diverse needs of our clients in the ever-evolving world of technology. Our services are tailored to enhance efficiency, productivity, and competitiveness, helping businesses and individuals leverage the full potential of information technology. 
           </p>
         </div>
         <div className="row">
           {props.data
             ? props.data.map((d, i) => (
-                <div key={`${d.name}-${i}`} className="col-md-4">
+                <div key={`${d.name}-${i}`} className="col-md-3">
                   {" "}
                   <i className={d.icon}></i>
                   <div className="service-desc">

@@ -7,7 +7,7 @@ export const Team = (props) => {
         <div className="col-md-8 col-md-offset-2 section-title">
           <h2>Meet the Team</h2>
           <p>
-            The Big Family W-PASAR.
+          A group of passionate and talented professionals dedicated to delivering innovative IT solutions and exceptional service to our clients. With diverse backgrounds and expertise, our team brings a wealth of knowledge and experience to every project we undertake.
           </p>
         </div>
         <div id="row">
