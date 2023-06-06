@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import React from "react";
+import { toast } from "react-toastify";
 
 const initialState = {
   name: "",
@@ -16,18 +17,26 @@ export const Contact = (props) => {
   };
   const clearState = () => setState({ ...initialState });
 
+  const displaySuccessSendMessage = (message) => {
+    toast.success(message);
+  };
+
+  const displayErrorSendMessage = (message) => {
+    toast.error(message);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(name, email, message);
     emailjs
-      .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", e.target, "YOUR_USER_ID")
+      .sendForm("service_9n2hy3s", "template_2bezmwl", e.target, "lVI9xQP2vEl0zXwob")
       .then(
         (result) => {
-          console.log(result.text);
           clearState();
+          displaySuccessSendMessage("Success send message");
         },
         (error) => {
-          console.log(error.text);
+          displayErrorSendMessage(error.text);
         }
       );
   };
@@ -44,7 +53,7 @@ export const Contact = (props) => {
                   get back to you as soon as possible.
                 </p>
               </div>
-              <form name="sentMessage" validate onSubmit={handleSubmit}>
+              <form name="sentMessage" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -54,6 +63,7 @@ export const Contact = (props) => {
                         name="name"
                         className="form-control"
                         placeholder="Name"
+                        value={name}
                         required
                         onChange={handleChange}
                       />
@@ -68,6 +78,7 @@ export const Contact = (props) => {
                         name="email"
                         className="form-control"
                         placeholder="Email"
+                        value={email}
                         required
                         onChange={handleChange}
                       />
@@ -82,6 +93,7 @@ export const Contact = (props) => {
                     className="form-control"
                     rows="4"
                     placeholder="Message"
+                    value={message}
                     required
                     onChange={handleChange}
                   ></textarea>
@@ -121,7 +133,7 @@ export const Contact = (props) => {
               </p>
             </div>
           </div>
-          <div className="col-md-12">
+          {/* <div className="col-md-12">
             <div className="row">
               <div className="social">
                 <ul>
@@ -143,7 +155,7 @@ export const Contact = (props) => {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <div id="footer">
