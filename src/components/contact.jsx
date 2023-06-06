@@ -1,22 +1,36 @@
-import React, { useRef } from 'react';
+import { useState } from "react";
 import emailjs from "emailjs-com";
+import React from "react";
 
+const initialState = {
+  name: "",
+  email: "",
+  message: "",
+};
 export const Contact = (props) => {
-  
-  const form = useRef();
+  const [{ name, email, message }, setState] = useState(initialState);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-
-    emailjs.sendForm('service_9n2hy3s', 'template_2bezmwl', form.current, 'lVI9xQP2vEl0zXwob')
-      .then((result) => {
-          console.log(result.text);
-      }, (error) => {
-          console.log(error.text);
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
+  const clearState = () => setState({ ...initialState });
 
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(name, email, message);
+    emailjs
+      .sendForm("service_9n2hy3s", "template_2bezmwl", e.target, "lVI9xQP2vEl0zXwob")
+      .then(
+        (result) => {
+          console.log(result.text);
+          clearState();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
   return (
     <div>
       <div id="contact">
@@ -30,17 +44,18 @@ export const Contact = (props) => {
                   get back to you as soon as possible.
                 </p>
               </div>
-              <form ref={form} onSubmit={sendEmail}>
+              <form name="sentMessage" validate onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <input
                         type="text"
-                        id="user_name"
-                        name="user_name"
+                        id="name"
+                        name="name"
                         className="form-control"
                         placeholder="Name"
                         required
+                        onChange={handleChange}
                       />
                       <p className="help-block text-danger"></p>
                     </div>
@@ -49,11 +64,12 @@ export const Contact = (props) => {
                     <div className="form-group">
                       <input
                         type="email"
-                        id="user_email"
-                        name="user_email"
+                        id="email"
+                        name="email"
                         className="form-control"
                         placeholder="Email"
                         required
+                        onChange={handleChange}
                       />
                       <p className="help-block text-danger"></p>
                     </div>
@@ -67,6 +83,7 @@ export const Contact = (props) => {
                     rows="4"
                     placeholder="Message"
                     required
+                    onChange={handleChange}
                   ></textarea>
                   <p className="help-block text-danger"></p>
                 </div>
